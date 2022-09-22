@@ -85,8 +85,10 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-12">
+                                    <center>
                                     <asp:Button runat="server" OnClientClick="return delalert(this);" OnClick="Delete_Click" CssClass="btn btn-danger sm-3 m-2" Text="Eliminar" ID="Delete" />
                                     <asp:Button runat="server" ID="video" OnClick="video_Click" CssClass="btn btn-success sm-2 m-1" Text="Ver Video"/>
+                                    </center>
                                 </div>
                             </div>
                         </div>
@@ -101,7 +103,7 @@
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                             </div>
                             <div class="modal-body">
-                                <iframe runat="server" id="videoPlayer" visible="false" width="350" height="450"></iframe>
+                                <iframe runat="server" id="videoPlayer" visible="false" width="450" height="450"></iframe>
                             </div>
                         </div>
                     </div>

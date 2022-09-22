@@ -39,7 +39,7 @@ namespace AfexPrueba.Services
         public async Task<VideoInfoResponse> GetVideoInfo(string url)
         {
             // sacar el id de la url del video
-            
+
             string videoId = url.Substring(url.IndexOf("v=") + 2);
             var response = await httpClient.GetAsync($"videos?id={videoId}&key={API_KEY}&part=snippet");
             response.EnsureSuccessStatusCode();
@@ -51,20 +51,23 @@ namespace AfexPrueba.Services
 
         public async Task<Videos> SaveVideo(string url)
         {
-          var getvideo = await  GetVideoInfo(url);
-           var result =  getvideo.Items.FirstOrDefault();
-
-            Videos toSaveVideo = new Videos()
+            var getvideo = await GetVideoInfo(url);
+            var result = getvideo.Items.FirstOrDefault();
+            if (result != null)
             {
-                Titulo = result.Snippet.Title,
-                Imagen = result.Snippet.Thumbnails.high.url,
-                Descripcion = result.Snippet.Description,
-                Link  = url
-                
-            };
-            context.Videos.Add(toSaveVideo);
-            context.SaveChanges();
-            return toSaveVideo;
+                Videos toSaveVideo = new Videos()
+                {
+                    Titulo = result.Snippet.Title,
+                    Imagen = result.Snippet.Thumbnails.high.url,
+                    Descripcion = result.Snippet.Description,
+                    Link = url
+
+                };
+                context.Videos.Add(toSaveVideo);
+                context.SaveChanges();
+                return toSaveVideo;
+            }
+            return null;
         }
 
         public async Task<List<Videos>> GetAll()
