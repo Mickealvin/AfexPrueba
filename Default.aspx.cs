@@ -17,22 +17,41 @@ namespace AfexPrueba
         public _Default()
         {
             videosService = new VideosService();
+          
         }
         protected async Task Page_LoadAsync(object sender, EventArgs e)
         {
-          await ListView_GetData();
+          
         }
 
         protected async void btnBuscar_Click(object sender, EventArgs e)
         {
             var result = await videosService.SaveVideo(txtUrl.Text);
-            await ListView_GetData();
+            ListView1.DataBind();
         }
 
         public async Task<List<Videos>> ListView_GetData()
         {
             var result = await videosService.GetAll();
             return result;
+        }
+
+        protected void Mostrar_Click(object sender, ImageClickEventArgs e)
+        {
+            
+           
+        }
+
+        protected async void Mostrar_Command(object sender, CommandEventArgs e)
+        {
+            int Id = Convert.ToInt32(e.CommandArgument);
+            var hola = await videosService.GetId(Id);
+
+            LB.Text = hola.Titulo;
+            DS.Text = hola.Descripcion;
+            IMG.ImageUrl = hola.Imagen;
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+
         }
     }
 }

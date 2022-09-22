@@ -20,7 +20,7 @@ namespace AfexPrueba.Shared
 
     public class Thumbnails
     {
-        public ThumbnailInfo standard { get; set; }
+        public ThumbnailInfo high { get; set; }
     }
 
     public class ThumbnailInfo
