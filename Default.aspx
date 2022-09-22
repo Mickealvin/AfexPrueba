@@ -72,16 +72,36 @@
                     </LayoutTemplate>
                 </asp:ListView>
                 <div id="myModal" class="modal fade">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog alert-info">
                         <div class="modal-content">
+                            <asp:HiddenField ID="hdField" runat="server" Value="false" />
                             <div class="modal-header">
                                 <asp:Label runat="server" ID="LB"></asp:Label>
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                             </div>
                             <div class="modal-body">
-
                                 <asp:Image runat="server" Height="410" Width="449" CssClass="mb-3 m-2" ImageAlign="Left" ID="IMG" />
                                 <asp:Label runat="server" CssClass="mb-2 sm-2" ID="DS"></asp:Label>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <asp:Button runat="server" OnClientClick="return delalert(this);" OnClick="Delete_Click" CssClass="btn btn-danger sm-3 m-2" Text="Eliminar" ID="Delete" />
+                                    <asp:Button runat="server" ID="video" OnClick="video_Click" CssClass="btn btn-success sm-2 m-1" Text="Ver Video"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <div id="myVideoModal" class="modal fade">
+                    <div class="modal-dialog alert-info">
+                        <div class="modal-content">
+                            <asp:HiddenField ID="HiddenField1" runat="server" Value="false" />
+                            <div class="modal-header">
+                                <asp:Label runat="server" ID="Label1"></asp:Label>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            </div>
+                            <div class="modal-body">
+                                <iframe runat="server" id="videoPlayer" visible="false" width="350" height="450"></iframe>
                             </div>
                         </div>
                     </div>
@@ -89,9 +109,41 @@
             </div>
         </div>
     </section>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script type="text/javascript">
         function openModal() {
             $('#myModal').modal('show');
         }
+        function videoModal() {
+            $('#myVideoModal').modal('show')
+        }
+        var delalertok = false
+        function delalert(btn) {
+
+            if (delalertok) {
+                delalertok = false
+                return true
+            }
+
+            swal({
+                title: "Estas Seguro?",
+                text: "Estas seguro de eliminar este video?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then(willDelete => {
+                    if (willDelete) {
+                        delalertok = true;
+                        btn.click();
+                    }
+                    else {
+                        swal("Safe!", "Se guardaron los cambios", "success");
+                    }
+                });
+            return false;
+        }
+
     </script>
 </asp:Content>

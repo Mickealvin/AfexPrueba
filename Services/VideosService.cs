@@ -4,6 +4,7 @@ using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
 using System.Drawing.Printing;
 using System.Linq;
@@ -17,13 +18,12 @@ namespace AfexPrueba.Services
 {
     public class VideosService
     {
-        private readonly string API_KEY;
         private readonly HttpClient httpClient;
         private readonly AfexDbContext context;
+        private static string API_KEY = ConfigurationManager.AppSettings["API_KEY"];
         public VideosService()
         {
             context = new AfexDbContext();
-            this.API_KEY = "AIzaSyCS2sI0Ox6-hKuW29SjMpUfYGD1ytE5BHM";
             this.httpClient = new HttpClient();
             if (httpClient.BaseAddress == null)
             {
@@ -79,6 +79,14 @@ namespace AfexPrueba.Services
             var videos = await context.Videos.FirstOrDefaultAsync(x => x.Id == id);
 
             return videos;
+        }
+
+        public async Task<Videos> Delete(int id)
+        {
+            var video = await GetId(id);
+            context.Videos.Remove(video);
+            await context.SaveChangesAsync();
+            return video;
         }
 
     }
