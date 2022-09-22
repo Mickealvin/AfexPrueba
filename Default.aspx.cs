@@ -36,12 +36,6 @@ namespace AfexPrueba
             return result;
         }
 
-        protected void Mostrar_Click(object sender, ImageClickEventArgs e)
-        {
-            
-           
-        }
-
         protected async void Mostrar_Command(object sender, CommandEventArgs e)
         {
             int Id = Convert.ToInt32(e.CommandArgument);
