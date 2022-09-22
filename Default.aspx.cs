@@ -38,12 +38,12 @@ namespace AfexPrueba
 
         protected async void Mostrar_Command(object sender, CommandEventArgs e)
         {
-            int Id = Convert.ToInt32(e.CommandArgument);
-            var hola = await videosService.GetId(Id);
+            int id = Convert.ToInt32(e.CommandArgument);
+            var getById = await videosService.GetId(id);
 
-            LB.Text = hola.Titulo;
-            DS.Text = hola.Descripcion;
-            IMG.ImageUrl = hola.Imagen;
+            LB.Text = getById.Titulo;
+            DS.Text = getById.Descripcion;
+            IMG.ImageUrl = getById.Imagen;
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
 
         }
